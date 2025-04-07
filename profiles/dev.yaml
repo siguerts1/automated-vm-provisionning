@@ -1,0 +1,18 @@
+#cloud-config
+hostname: dev-vm
+users:
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: sudo
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ${SSH_PUBLIC_KEY}
+package_update: true
+packages:
+  - python3
+  - git
+  - curl
+runcmd:
+  - echo "Setup complete on $(hostname)" > /home/ubuntu/setup.txt
+  - chown ubuntu:ubuntu /home/ubuntu/setup.txt
+
